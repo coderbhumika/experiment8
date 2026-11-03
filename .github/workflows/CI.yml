@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  train-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Project Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install libraries
+        run: pip install -r requirements.txt
+
+      - name: ML Model Training
+        run: python train.py
+
+      - name: ML Model Testing
+        run: python test.py
+
+      
